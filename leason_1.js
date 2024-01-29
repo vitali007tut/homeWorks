@@ -67,6 +67,34 @@
 
 3) Написать по 2 примера создания примитивных значений (если есть несколько способов - использовать) (string, number, boolean, null, undefined, symbol, bigInt)
 
+    string:
+    const nullString = String(null)
+    const backTics = `1 + 5 = ${1+5}`
+
+    number:
+    const n = 42
+    const numInfinity = Infinity
+
+    boolean:
+    const isExist = true
+    const helloBoolean = !!"Hello"
+
+    null:
+    let nullValue = null
+    const element = document.getElementById('notExistingId')
+
+    undefined:
+    let x = undefined
+    let withoutInitilization;
+
+    symbol:
+    const symbolEmpty = Symbol()
+    const symbolNumber = Symbol(123)
+
+    bigInt:
+    const bigZero = 0n
+    const hugeBigInt = 999999999999n
+
 4) Почему, если обратиться к переменным созданным через let, const до их объявления - мы получаем ReferenceError?
 
     У let/const блочная область видимости {}.
@@ -75,12 +103,21 @@
     В JS существует такое явление, как поднятие переменных в верхнюю часть их области видимости. То есть, если в некоей области видимости объявляют переменную, JS резервирует место для неё ещё до того, как будет выполнена команда её объявления -- переменные попадают во временную мёртвую зону (TDZ, Temporal Dead Zone).
 
 5) Решить:
+*/
+
 const res = "B" + "a" + (1 - "hello");
-console.log(res); //
+console.log("B" + "a") // Ba -- конкатенация строк
+console.log(1 - "hello") // - "hello" приводит к числу : (1 - NaN) = NaN
+console.log('Ba' + NaN) // + NaN приводит к строке : 'Ba' + 'NaN' = 'BaNaN'
+console.log(res);
 
 const res2 = (true && 3) + "d";
+console.log(true && 3) // Первый аргумент - true, поэтому возвращается второй аргумент : 3
+console.log(3 + 'd') // 3 приводится к строке т.к. оператор + : '3d'
 console.log(res2); //
 
 const res3 = Boolean(true && 3) + "d";
+console.log(Boolean(true && 3)) // Boolean(3) т.к. Первый аргумент - true, поэтому возвращается второй
+                                // Boolean(3) === true, т.к. числа кроме 0 и NaN всегда true
+console.log(true + 'd') // true приводится к строке 'true' : срабатывает конкатенация строк 'trued'
 console.log(res3); //
-*/
