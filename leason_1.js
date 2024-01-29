@@ -9,8 +9,8 @@
 
         -- Предзапросов по технологии CORS с методами отличными от GET, POST или HEAD с целью разрешения основного запроса.
             Браузер сам отправляет запрос с методом OPTIONS c содержанием:
-             - Путь – точно такой же, как в основном запросе: /service.json.
-             - Особые заголовки:
+            - Путь – точно такой же, как в основном запросе: /service.json.
+            - Особые заголовки:
                         Origin – источник.
                         Access-Control-Request-Method – запрашиваемый метод.
                         Access-Control-Request-Headers – разделённый запятыми список «непростых» заголовков запроса.
@@ -40,6 +40,30 @@
     https://ably.com/topic/http-2-vs-http-3
 
 3) Прочитать про способы отмены запроса, включая объект "AbortController"
+
+    AbortController -- интерфейс, который можно использовать для отмены не только fetch, но и других асинхронных задач.
+
+    let controller = new AbortController();
+    Контроллер controller имеет единственный метод abort() и единственное свойство signal.
+    При вызове abort():
+        генерируется событие с именем abort на объекте controller.signal
+        свойство controller.signal.aborted становится равным true.
+
+        Пример без fetch:
+    let signal = controller.signal;
+    signal.addEventListener('abort', () => alert("отмена!"));
+    controller.abort(); // отмена!
+    alert(signal.aborted); // true
+
+        Пример с fetch:
+    let controller = new AbortController();
+    fetch(url, {
+        signal: controller.signal
+    });
+
+    fetch получает событие из signal и прерывает запрос.
+    Когда fetch отменяется, его промис завершается с ошибкой AbortError, поэтому мы должны обработать её.
+    AbortController – масштабируемый, он позволяет отменить несколько вызовов fetch одновременно.
 
 3) Написать по 2 примера создания примитивных значений (если есть несколько способов - использовать) (string, number, boolean, null, undefined, symbol, bigInt)
 
