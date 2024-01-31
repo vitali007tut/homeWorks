@@ -92,7 +92,7 @@
     const symbolNumber = Symbol(123)
 
     bigInt:
-    const bigZero = 0n
+    const bigZero = BigInt(0)
     const hugeBigInt = 999999999999n
 
 4) Почему, если обратиться к переменным созданным через let, const до их объявления - мы получаем ReferenceError?
