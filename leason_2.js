@@ -100,4 +100,42 @@ function reverseStr(str) {
   return …
 } */
 
-const  reverseStr = (str) => str.split('').reverse().join('')
+//! Задание 1 – Написать функцию глубокого сравнения двух объектов:
+const obj1 = { 
+    here: { is: "on", 
+            other: "3" }, 
+    object: "Y",
+    call: function() {alert('im func')} };
+    
+    const obj2 = { 
+        here: { is: "on", 
+                other: "3" }, 
+        object: "Y",
+        call: function() {alert('im func')} };
+    
+    const deepEqual = (obj1, obj2) => {
+
+        if (Object.keys(obj1).length !== Object.keys(obj2).length) return false
+
+        for (const key in obj1) {
+
+            if (typeof obj1[key] === 'object') {
+                if (!deepEqual(obj1[key], obj2[key])) {
+                    return false
+                }
+            } else if (typeof obj1[key] === 'function') {
+                if (obj1[key].toString() !== obj2[key].toString()) {
+                    return false
+                }
+            } else if (obj1[key] !== obj2[key]) {
+                console.log('false', obj1[key], obj2[key]);
+                return false
+            }
+        }
+        return true
+    }
+
+    console.log(deepEqual(obj1, obj2));
+
+    //! Задание 2 – Развернуть строку в обратном направлении при помощи методов массивов:
+    const  reverseStr = (str) => str.split('').reverse().join('')
