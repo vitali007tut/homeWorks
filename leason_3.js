@@ -7,25 +7,32 @@
 //        - Матрица - массив массивов
 //        - Stack (стек)
 //        - Queue (очередь)
-//        - Hash table (хеш-таблица) -- ассоциативный массив вместо индекса -- ключ
-//        - Linked list (связный список)
 
 //! 2) Привязать контекст объекта к функции logger, чтобы при вызове this.item выводило - some value (Привязать через bind, call, apply)
-function logger() {
-    console.log(`I output only external context: ${this.item}`);
-}
-const obj = { item: "some value" };
-logger.bind(obj)()
-logger.call(obj)
-logger.apply(obj)
+        function logger() {
+            console.log(`I output only external context: ${this.item}`);
+        }
+        const obj = { item: "some value" };
+        logger.bind(obj)()
+        logger.call(obj)
+        logger.apply(obj)
 
 // 3.1 Массивы:
 //
 // - Создайте массив чисел и найдите его сумму.
+    const arrayNumbers = [1, 2, -5, 3, 4, 5]
+    const sum = arrayNumbers.reduce((acc, current) => acc + current, 0)
+    console.log(`Сумма чисел массива = ${sum}`)
 // - Создайте массив строк и объедините их в одну строку.
+    const arrStrings = ['Hello,', ' ', 'new ', 'day!']
+    const strJoin = arrStrings.join('')
+    console.log(`Результат объединения в строку: ${strJoin}`)
 // - Найдите максимальный и минимальный элементы в массиве чисел.
+    const max = Math.max(...arrayNumbers)
+    const min = Math.min(...arrayNumbers)
+    console.log(`Max = ${max}, Min = ${min}`)
 //
-// 3.2 Stack (стек):
+//! 3.2 Stack (стек):
 // - Реализуйте стек с использованием массива.
 //
 // 3.3 Queue (очередь):
