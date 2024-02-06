@@ -1,5 +1,5 @@
-// 1) Написать ответ - почему массивы в JS являются "неправильными" и совмещают в себе несколько
-//     структур данных? Какие ?
+//! 1) Написать ответ - почему массивы в JS являются "неправильными" и совмещают в себе несколько
+//!     структур данных? Какие ?
 //
 //     Массив -- неизменная по длинне структура, и когда мы производим добаления/удаления элементов
 //     создаётся массив новой длинны и в него копируется старый массив с/без новым элементом.
@@ -10,7 +10,7 @@
 //        - Hash table (хеш-таблица) -- ассоциативный массив вместо индекса -- ключ
 //        - Linked list (связный список)
 
-// 2) Привязать контекст объекта к функции logger, чтобы при вызове this.item выводило - some value (Привязать через bind, call, apply)
+//! 2) Привязать контекст объекта к функции logger, чтобы при вызове this.item выводило - some value (Привязать через bind, call, apply)
 function logger() {
     console.log(`I output only external context: ${this.item}`);
 }
@@ -33,23 +33,39 @@ logger.apply(obj)
 // - Реализуйте очередь с использованием массива.
 // - Имитируйте работу очереди на примере ожидания на кассе.
 //
-//  Бонус задание: Реализовать полифил(собственную функцию реализующую встроенную в js) метода bind()
+//!  Бонус задание: Реализовать полифил(собственную функцию реализующую встроенную в js) метода bind()
 
 const person = {
     name: 'Vitali',
     age: 35,
-    logInfo: function() {
-        console.log(`Name is ${this.name}`)
-        console.log(`Age is ${this.age}`)
+    logInfo: function(tel, city) {
+        console.log(`Name is ${this.name} Age is ${this.age}, tel:${tel}, city:${city}`)
     }
 }
-const lena = {
-    name: "Elena",
+const hero = {
+    name: "Hero",
     age: 25
 }
 
-person.logInfo.bind(lena)()
-Function.prototype.myBind = function (context)  {
+person.logInfo.bind(hero)('123456', 'Gomel')
+person.logInfo.bind(hero, '123456')('Gomel')
+person.logInfo.bind(hero,'123456', 'Gomel')()
+console.log('*************************');
 
+Function.prototype.myBind = function (context, ...rest)  {
+
+    const uniqID = Date.now().toString()
+    context[uniqID] = this
+
+    return function(...args) {
+        const result = context[uniqID](...rest.concat(args))
+        delete context[uniqID]
+
+        return result
 }
-person.logInfo.myBind(lena)()
+}
+
+person.logInfo.myBind(hero)()
+person.logInfo.myBind(hero)('123456', 'Gomel')
+person.logInfo.myBind(hero, '123456')('Gomel')
+person.logInfo.myBind(hero,'123456', 'Gomel')()
