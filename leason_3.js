@@ -35,23 +35,18 @@
 //
 //! 3.2 Stack (стек):
 // - Реализуйте стек с использованием массива.
-        class Stack {
-            constructor() {
-                this.items = [];
-            }
-
-            add(element) {
+        const Stack = function (){
+            this.items = [];
+            this.add = function (element) {
                 this.items.push(element);
             }
-
-            remove() {
-                return this.items.pop();
+            this.remove = function () {
+                this.items.pop();
             }
-
-            toArray() {
+            this.toArray = function() {
                 return this.items;
             }
-        }
+        };
 
         const stack = new Stack()
         stack.add('1')
