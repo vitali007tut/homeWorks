@@ -46,7 +46,64 @@
 //      Метки – единственный способ для break/continue выйти за пределы текущего цикла, 
 //          повлиять на выполнение внешнего.
 
-// 3) Создать объект Person несколькими способами, после создать объект Person2, чтобы в нём были доступны методы объекта Person. Добавить метод logInfo чтоб он был доступен всем объектам.
+    // 3) Создать объект Person несколькими способами, после создать объект Person2, чтобы в нём были доступны методы объекта Person. Добавить метод logInfo чтоб он был доступен всем объектам.
+function Person(name, age) {
+    this.name = name
+    this.age = age
+    this.sayHi = function () {
+        console.log(`person ${this.name} age ${this.age} said "Hi"`);
+    }
+}
+
+function Person2(name, age) {
+    Person.call(this, name, age)
+}
+Person2.prototype = Object.create(Person.prototype)
+// Person2.prototype = new Person() // аналог Object.create()
+Person2.prototype.constructor = Person2
+Person2.prototype.sayBye = function () {
+    console.log(`person ${this.name} age ${this.age} said "Bye"`)
+}
+
+const person = new Person('AAA', 25)
+const person2 = new Person2('Second', 22)
+
+person.sayHi()
+// обращение к унаследованному методу sayHi
+person2.sayHi()
+person2.sayBye()
+
+// Add метод logInfo в прототип Person -- доступен всем объектам.
+Person.prototype.logInfo = function () {
+    console.log(`Name: ${this.name}  Age: ${this.age}`);
+}
+person.logInfo()
+person2.logInfo()
+
+class PersonClass {
+    constructor(name, age) {
+    this.name = name
+    this.age = age
+}
+    sayHi = function () {
+        console.log(`person ${this.name} age ${this.age} said "Hi"`);
+    }
+}
+// наследуем Person2Class от PersonClass
+class Person2Class extends PersonClass{}
+// создаём объекты
+const personClass = new PersonClass('ClassPerson', 35)
+const person2Class = new Person2Class('ClassPersonSecond', 33)
+personClass.sayHi()
+// обращение к унаследованному методу
+person2Class.sayHi()
+// Add метод logInfo в прототип класса Person -- доступен всем объектам.
+PersonClass.prototype.logInfo = function () {
+    console.log(`Name: ${this.name}  Age: ${this.age}`);
+}
+personClass.logInfo()
+person2Class.logInfo()
+
 // 4) Создать класс PersonThree c get и set для поля name и конструктором, сделать класс наследник от класса Person.
 
 // БОНУС: 
