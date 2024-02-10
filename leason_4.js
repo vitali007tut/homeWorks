@@ -106,6 +106,28 @@ person2Class.logInfo()
 
 // 4) Создать класс PersonThree c get и set для поля name и конструктором, сделать класс наследник от класса Person.
 
+class PersonThree extends PersonClass{
+    constructor(name, age) {
+        super(name, age); // вызывает сеттер
+    }
+    get name() {
+        // get вызывается всегда при обращении к this.name
+        return this._name // используем _
+    }
+    set name(value) {
+        if (value.length < 4) {
+            console.log("Имя слишком короткое.");
+            return;
+        }
+        this._name = value; // используем _
+    }
+}
+const personThree = new PersonThree('Vita', 30)
+personThree.logInfo()
+personThree.sayHi()
+personThree.name = "New"
+console.log(personThree.name)
+
 // БОНУС: 
 //! 1) Написать функцию, которая вернет массив с первой парой чисел, сумма которых равна total:
 
