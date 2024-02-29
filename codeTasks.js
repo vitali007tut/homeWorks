@@ -111,20 +111,41 @@
 // Observer: Событие произошло
 // Observer: Обработка события
 
+// queueMicrotask(() => {
+//     console.log("1");
+//   });
+//   Promise.reject("2")
+//     .catch((res1) => {
+//       console.log("res1", res1);
+//       return "4";
+//     })
+//     .then((res2) => {
+//       console.log("res2", res2);
+//     });
+//   queueMicrotask(() => {
+//     console.log("3");
+//   });
+// 1
+// res1 2
+// 3
+// res2 4
 
-queueMicrotask(() => {
-    console.log("1");
-  });
-  
-  Promise.reject("2")
-    .catch((res1) => {
-      console.log("res1", res1);
-      return "4";
-    })
-    .then((res2) => {
-      console.log("res2", res2);
-    });
-  
-  queueMicrotask(() => {
-    console.log("3");
-  });
+const myPromise = Promise.resolve(Promise.resolve("Promise!"));
+
+function funcOne() {
+    myPromise
+        .then((res) => res)
+        .then((res) => console.log(res, "Результат funcOne"));
+    setTimeout(() => console.log("Timeout! 1", 0));
+    console.log("Last line! 1");
+}
+
+async function funcTwo() {
+    const res = await myPromise;
+    console.log(res, "Результат funcTwo");
+    setTimeout(() => console.log("Timeout! 2", 0));
+    console.log("Last line! 2");
+}
+
+funcOne();
+funcTwo();
