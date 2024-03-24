@@ -130,22 +130,40 @@
 // 3
 // res2 4
 
-const myPromise = Promise.resolve(Promise.resolve("Promise!"));
+// const myPromise = Promise.resolve(Promise.resolve("Promise!"));
+// function funcOne() {
+//     myPromise
+//         .then((res) => res)
+//         .then((res) => console.log(res, "Результат funcOne")); //Mi1
+//     setTimeout(() => console.log("Timeout! 1", 0)); //Ma1
+//     console.log("Last line! 1"); //S1
+// }
+// async function funcTwo() {
+//     const res = await myPromise;
+//     console.log(res, "Результат funcTwo"); //S2
+//     setTimeout(() => console.log("Timeout! 2", 0)); //Ma2
+//     console.log("Last line! 2"); //S3
+// }
+// funcOne();
+// funcTwo();
+// Last line! 1
+// Promise! Результат funcTwo
+// Last line! 2
+// Promise! Результат funcOne
+// Timeout! 1 0
+// Timeout! 2 0
 
-function funcOne() {
-    myPromise
-        .then((res) => res)
-        .then((res) => console.log(res, "Результат funcOne"));
-    setTimeout(() => console.log("Timeout! 1", 0));
-    console.log("Last line! 1");
-}
 
-async function funcTwo() {
-    const res = await myPromise;
-    console.log(res, "Результат funcTwo");
-    setTimeout(() => console.log("Timeout! 2", 0));
-    console.log("Last line! 2");
-}
+const foo = async () => {
+    console.log("1");
+    return 100;
+};
 
-funcOne();
-funcTwo();
+const bar = async () => {
+    console.log("2");
+    const r = await foo();
+    console.log(r);
+    foo().then((res) => console.log(res));
+    await console.log("3");
+    console.log(await "4");
+};
