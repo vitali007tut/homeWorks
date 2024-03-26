@@ -153,17 +153,17 @@
 // Timeout! 1 0
 // Timeout! 2 0
 
-
-const foo = async () => {
-    console.log("1");
-    return 100;
-};
-
-const bar = async () => {
-    console.log("2");
-    const r = await foo();
-    console.log(r);
-    foo().then((res) => console.log(res));
-    await console.log("3");
-    console.log(await "4");
-};
+// const foo = async () => {
+//     console.log("1");
+//     return 100;
+// };
+// const bar = async () => {
+//     console.log("2");
+//     const r = await foo();
+//     console.log(r);
+//     foo().then((res) => console.log(res));
+//     await console.log("3");
+//     console.log(await "4");
+// };
+// bar();
+// 2 1 100 1 3 100 4
